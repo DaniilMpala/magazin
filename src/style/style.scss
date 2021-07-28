@@ -54,9 +54,21 @@ input[type="number"]::-webkit-outer-spin-button {
 @import "color.scss";
 .modal {
     z-index: 999999;
-    color: $black_border;
+    color: #fff;
+    .modal-content {
+        background-color: #222;
+    }
     .modal-header {
         border-bottom: none;
+        .btn-close {
+            background-color: #fff;
+            box-shadow: inset 0 0 60px #d14148;
+        }
+    }
+    .modal-body {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
     }
     .modal-footer {
         border-top: none;
@@ -102,9 +114,13 @@ input {
     padding: 5px;
     margin-top: 10px;
     outline: none;
-    background-color: #555555;
-    color: #dfdfdf;
-    box-shadow: inset 0px 0px 1px #111111;
+    background-color: #ff7f4e;
+    color: #fff;
+
+    box-shadow: inset 0 0 150px #d14148;
+    &::placeholder {
+        color: rgba(255, 255, 255, 0.705);
+    }
 }
 .item {
     width: 100%;
@@ -235,13 +251,10 @@ footer {
 header {
     position: sticky;
     top: -10px;
-    //left: -100px;
-    transition: 0.2s;
-    //box-shadow: 0 6px 4px $green;
-    //border-bottom: 3px solid $black_border;
 
-    //padding: 0 20px;
+    transition: 0.2s;
     z-index: 16;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.721);
     li {
         list-style-type: none;
         display: inline;
