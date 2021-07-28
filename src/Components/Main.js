@@ -23,6 +23,24 @@ class Main extends React.Component {
                             price: 499
                         },
                     ]
+                },
+                {
+                    id: "1",
+                    title: "С открытой торговой площадкой — Россия",
+                    items: [
+                        {
+                            id: "1",
+                            title: "Аккаунты steam c 4 LVL + уже открытая торговая площадка и рабочий обмен",
+                            colVo: 10,
+                            price: 499
+                        },
+                        {
+                            id: "2",
+                            title: "Аккаунты steam c 4 LVL + уже открытая торговая площадка и рабочий обмен",
+                            colVo: 10,
+                            price: 499
+                        },
+                    ]
                 }
             ]
         }
@@ -40,7 +58,11 @@ class Main extends React.Component {
     render() {
         return (
             <>
-                <div>
+                <div className="headerMain">
+                    <span className="titleSteam">Аккаунты Steam</span>
+                    <p>Добро пожаловать на биржу НАЗВАНИЕ, где вы сможете купить аккаунты Steam с играми напрямую у игроков без переплат. Сделки защищены гарантом безопасности. Мы продаем аккаунты полученные только легальным путем.</p>
+                </div>
+                <div className="items">
                     {this.state.data.map((e, key) => {
                         return (
                             <>
@@ -75,11 +97,11 @@ class Main extends React.Component {
                                 <div class="modal-body">
                                     <div>
                                         <label>Почта</label>
-                                        <input placeholder="Ваша почта"/>
+                                        <input placeholder="Ваша почта" />
                                     </div>
                                     <div>
                                         <label>Количество</label>
-                                        <input value="1"/>
+                                        <input value="1" />
                                     </div>
                                 </div>
                                 <div class="modal-footer">

@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from "react-router-dom"
 import logo from '../img/logoNew_3.svg'
+import '../style/header.scss'
 
 
 class Header extends React.Component {
@@ -16,7 +17,7 @@ class Header extends React.Component {
             <header>
                 <nav>
                     <ul className="iconName">
-                        <img src={logo} /> <span className="logoName">MySHOP</span>
+                        <img src={logo} /> <span className="logoName">НАЗВАНИЕ</span>
                     </ul>
                     <div ref={this.navigation} className="navigation-container">
                         <ul className="navigation">
