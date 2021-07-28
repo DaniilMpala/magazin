@@ -1,22 +1,17 @@
 @import "color.scss";
 @import "default-styles.scss";
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap");
 
 body {
-    //background-image: url(../img/rull_wall_fin.png); /* Путь к фоновому рисунку */
-    //background-position: left bottom; /* Положение фона */
-    //background-repeat: repeat;
-    //background-color: $black;
-    background-color: #8BC6EC;
-    background-image: linear-gradient(135deg, #acdcff 0%, #3597dc 100%);
-
+    //background-color: #0093e9;
+    background-image: linear-gradient(160deg, #ff8c5f 0%, #f74c54 100%);
 
     //overflow-y: scroll;
     overflow-x: unset;
-    font-family: 'Nunito', sans-serif;
+    font-family: "Nunito", sans-serif;
     font-size: 17px;
 
-    color:$fontColorWhite;
+    color: $fontColorWhite;
 }
 #root {
     overflow-x: hidden;
@@ -43,7 +38,7 @@ body {
     //position: relative;
 
     margin-top: 15px;
-    flex: 1 1 auto;
+    flex: 1 1 100%;
 
     display: flex;
     justify-content: center;
@@ -51,49 +46,49 @@ body {
 a {
     cursor: pointer;
 }
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 @import "color.scss";
-.modal{
+.modal {
     z-index: 999999;
     color: $black_border;
-    .modal-header{
+    .modal-header {
         border-bottom: none;
     }
-    .modal-footer{
+    .modal-footer {
         border-top: none;
     }
 }
-.textUseful{
-    span{
+.textUseful {
+    span {
         display: block;
         margin-bottom: 10px;
     }
-    .titleUseful{
+    .titleUseful {
         font-size: 18pt;
         font-weight: 600;
     }
 }
-.headerMain{
+.headerMain {
     width: 60%;
-    color: $black_border;
-    padding: 70px;
-    .titleSteam{
+    color: white;
+    padding: 40px;
+    .titleSteam {
         font-size: 37px;
-        font-weight: 700;
+        font-weight: 800;
         margin-bottom: 10px;
         display: block;
     }
-    p{
+    p {
         letter-spacing: 1px;
         font-size: 16px;
     }
 }
 
-.text{
+.text {
     background-color: $black_2;
     padding: 50px;
     border-radius: 10px;
@@ -111,7 +106,7 @@ input {
     color: #dfdfdf;
     box-shadow: inset 0px 0px 1px #111111;
 }
-.item{
+.item {
     width: 100%;
     background-color: $black_border;
     margin-top: 10px;
@@ -122,26 +117,25 @@ input {
     padding: 10px;
     box-shadow: 0 0 8px RGB(0 0 0 / 50%);
     justify-content: space-between;
-    img{
+    img {
         width: 23px;
     }
-    .colVo{
+    .colVo {
         background-color: $black_light;
-        padding: 5px 20px;
+        padding: 5px;
         border-radius: 8px;
     }
-    >div:first-child{
+    > div:first-child {
         width: 60%;
         display: flex;
         align-items: center;
         gap: 10px;
-        >span{
+        > span {
             margin-left: 10px;
             font-size: 12pt;
         }
-        
     }
-    >div:last-child{
+    > div:last-child {
         width: 40%;
         display: flex;
         justify-content: space-between;
@@ -153,17 +147,17 @@ button {
     width: 33%;
     padding: 7px;
     font-size: 15px;
+    font-weight: 600;
     background-color: $colorButtonAcc;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.26);
     color: #fff;
-    border-radius:8px;
+    border-radius: 8px;
     border: 0;
     transition: all 0.15s ease;
+    box-shadow: inset 0 0 30px #d14148;
 
-
-    :active{
+    :active {
         transform: translate(0, 0px);
-        
     }
 
     &:disabled {
@@ -176,23 +170,31 @@ button {
         //border: solid white;
     }
 }
-.title{
-    background: linear-gradient(90deg, rgba(34,34,34,1) 0%, rgba(65,65,65,1) 40%);
-    padding: 11px;
+.title {
+    //background: #222;
+    box-shadow: inset 0 0 60px #d14148;
+    border-radius: 12px;
+    padding: 15px 0;
     margin-top: 20px;
-    &:first-child{
-        margin-top: 0
+    text-align: center;
+    //color: #222;
+    font-weight: 700;
+    font-size: 20px;
+    &:first-child {
+        margin-top: 0;
     }
 }
-.items{
+.items {
     padding: 10px;
     box-shadow: 0 0 100px RGB(0 0 0 / 20%);
     border-radius: 10px;
 }
 footer {
+    transform: translate(0, 100%);
+    flex: 0 1 10%;
     background-color: $black_2;
     border-top: 3px solid $black_border;
-    margin-top: 35px;
+    //margin-top: 35px;
     width: 100%;
     display: flex;
     padding: 20px 10%;
@@ -370,7 +372,6 @@ header {
         overflow: auto;
     }
     nav {
-        
         background-color: $black_2;
         position: relative;
         z-index: 1600;
@@ -443,7 +444,6 @@ header {
             font-weight: 700;
             font-size: 16px;
         }
-        
     }
     .iconName {
         display: flex;
