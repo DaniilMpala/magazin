@@ -17,7 +17,7 @@ class Header extends React.Component {
             <header>
                 <nav>
                     <ul className="iconName">
-                        <img src={logo} /> <span className="logoName">НАЗВАНИЕ</span>
+                        <img src={logo} /> <span className="logoName">Shop-acc</span>
                     </ul>
                     <div ref={this.navigation} className="navigation-container">
                         <ul className="navigation">
