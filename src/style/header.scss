@@ -1,24 +1,36 @@
 .logoName {
     font-weight: 800;
-    animation: text 1s steps(8, start);
+    animation: text 2s;
     animation-delay: 1s;
     animation-fill-mode: forwards;
 
     width: 0px;
     letter-spacing: 1.5px;
-    font-family: monospace;
-    border-right: 4px solid rgb(223, 223, 223);
+    //font-family: monospace;
+    //border-right: 4px solid rgb(223, 223, 223);
+    color: white;
     overflow: hidden;
     text-transform: uppercase;
-    transition: text 0.2s ease;
+    transition: text 0.5s ease;
 
     white-space: nowrap;
+
+    transform: translate(0, 4px);
 }
 @keyframes text {
     0% {
+        border-right: 0px solid rgba(255, 255, 255, 0.379);
+        color: rgba(255, 255, 255, 0.479);
         width: 0px;
     }
+    75% {
+        border-right: 10px solid rgba(255, 255, 255, 0.671);
+        color: white;
+        width: 175px;
+    }
     100% {
-        width: 140px;
+        border-right: 1px solid rgba(255, 255, 255, 0);
+        color: white;
+        width: 175px;
     }
 }

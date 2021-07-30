@@ -161,16 +161,15 @@ input {
 }
 button {
     width: 33%;
-    padding: 7px;
+    padding: 10px;
     font-size: 15px;
-    font-weight: 600;
     //background-color: $colorButtonAcc;
-    background-color: white;
+    background-color: rgb(226, 226, 226);
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.26);
     //color: #fff;
-    font-weight: 700;
+    font-weight: 800;
     color: #d14148;
-    border-radius: 20px;
+    border-radius: 8px;
     border: 0;
     transition: all 0.15s ease;
     text-transform: uppercase;
