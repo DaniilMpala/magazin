@@ -59,8 +59,25 @@ class Main extends React.Component {
         return (
             <>
                 <div className="headerMain">
-                    <span className="titleSteam">Аккаунты Steam</span>
-                    <p>Добро пожаловать в магазин SHOP-ACC, где вы сможете купить аккаунты Steam с играми напрямую у игроков без переплат. Сделки защищены гарантом безопасности. Мы продаем аккаунты полученные только легальным путем.</p>
+                    <div class="headerMain__left-side">
+                        <span className="titleSteam">Аккаунты Steam</span>
+                        <p>Добро пожаловать в магазин SHOP-ACC, где вы сможете купить аккаунты Steam с играми напрямую у игроков без переплат. Сделки защищены гарантом безопасности. Мы продаем аккаунты полученные только легальным путем.</p>
+                    </div>
+
+                    <div class="headerMain__right-side">
+                        <div class="titleSteam__planet planet">
+                            <div class="planet__row">
+                                <img class="planet-steam" src='img/Steam.svg' />
+                                <img class="planet-origin" src='img/origin.svg' />
+                                <img class="planet-uplay" src='img/uplay.svg'/>
+                                <img class="planet-epic" src='img/epic.svg' />
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                    
+                    
                 </div>
                 <div className="items">
                     {this.state.data.map((e, key) => {

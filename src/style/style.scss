@@ -72,6 +72,7 @@ input[type="number"]::-webkit-outer-spin-button {
     }
     .modal-footer {
         border-top: none;
+        gap: 10px;
     }
 }
 .textUseful {
@@ -85,9 +86,9 @@ input[type="number"]::-webkit-outer-spin-button {
     }
 }
 .headerMain {
-    width: 60%;
+    width: 100%;
     color: white;
-    padding: 40px;
+    padding: 30px;
     .titleSteam {
         font-size: 37px;
         font-weight: 800;
@@ -161,16 +162,19 @@ input {
 }
 button {
     width: 33%;
-    padding: 7px;
+    padding: 10px;
     font-size: 15px;
-    font-weight: 600;
-    background-color: $colorButtonAcc;
+    //background-color: $colorButtonAcc;
+    background-color: rgb(216, 216, 216);
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.26);
-    color: #fff;
+    //color: #fff;
+    font-weight: 800;
+    color: #d14148;
     border-radius: 8px;
     border: 0;
     transition: all 0.15s ease;
-    box-shadow: inset 0 0 30px #d14148;
+    text-transform: uppercase;
+    //box-shadow: inset 0 0 30px #d14148;
 
     :active {
         transform: translate(0, 0px);
@@ -180,9 +184,10 @@ button {
         background-color: $colorButtonDisabled;
     }
     &:hover:not([disabled]) {
-        background-color: $colorButtonAccHover;
+        background-color: white;
+        opacity: 0.6;
         //box-shadow: 0 3px 10px $colorButtonAcc;
-        transform: scale(95%);
+        transform: scale(97%);
         //border: solid white;
     }
 }
@@ -219,6 +224,7 @@ main{
     padding: 10px;
     box-shadow: 0 0 100px RGB(0 0 0 / 20%);
     border-radius: 10px;
+    color: white;
 }
 footer {
     transform: translate(0, 100%);
@@ -716,4 +722,83 @@ header {
             }
         }
     }
+}
+
+.headerMain {
+    overflow: hidden;
+    display: flex;
+    height: 170px;
+    //justify-content: space-around;
+    &__left-side {
+        flex: 1 0 60%;
+    }
+    &__right-side {
+        flex: 1 0 40%;
+    }
+}
+
+.titleSteam {
+    &__planet {
+        position: relative;
+        z-index: 1;
+        width: 400px;
+        height: 400px;
+        border-radius: 50%;
+        margin: 0 auto;
+        background: radial-gradient(
+            farthest-side ellipse at top left,
+            white,
+            #aaaaaa
+        );
+        box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.3),
+            -5px -10px 30px rgba(255, 255, 255, 0.295);
+    }
+}
+.planet {
+    transition: all 0.7s ease;
+    &:hover {
+        transform: rotateZ(3deg);
+    }
+    &__row {
+        display: flex;
+        justify-content: space-around;
+    }
+}
+
+@keyframes wobble {
+    0% {
+        transform: rotateZ(0deg);
+    }
+
+    100% {
+        transform: rotateZ(360deg);
+    }
+}
+
+.planet-steam,
+.planet-origin,
+.planet-uplay,
+.planet-epic {
+    transition: all 0.5s ease;
+    &:hover {
+        transform: rotateZ(-5deg);
+    }
+    //filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.192));
+}
+
+.planet-steam {
+    height: 90px;
+    transform: translate(0, 30px);
+}
+.planet-origin {
+    height: 95px;
+    transform: translate(0px, 12px);
+}
+.planet-uplay {
+    height: 95px;
+    transform: translate(0px, 16px);
+}
+.planet-epic {
+    height: 85px;
+    transform: translate(0px, 35px);
 }
