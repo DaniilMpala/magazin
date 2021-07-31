@@ -62,7 +62,12 @@ input[type="number"]::-webkit-outer-spin-button {
         border-bottom: none;
         .btn-close {
             background-color: #fff;
-            box-shadow: inset 0 0 60px #d14148;
+            box-shadow: none;
+            transform: translate(-8px, 6px);
+            opacity: 0.7;
+            &:hover {
+                opacity: 0.5;
+            }
         }
     }
     .modal-body {
@@ -191,19 +196,19 @@ button {
         //border: solid white;
     }
 }
-.login{
+.login {
     background-color: #222222ab;
     padding: 15px;
     display: flex;
     flex-direction: column;
     width: 350px;
-    button{
+    button {
         margin-top: 10px;
     }
 }
-main{
+main {
     display: flex;
-    
+
     justify-content: center;
 }
 .title {
