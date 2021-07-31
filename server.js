@@ -1,4 +1,4 @@
-import { } from './functional.js'
+import { loginAdmin} from './functional.js'
 import exp from 'express'
 import http from 'http'
 import cookie from 'cookie'
@@ -49,9 +49,15 @@ app_express.get('*', async (req, res, next) => {
     }
 });
 
-// app_express.post('/getRefferalCode', async (req, res) => {
-//     if (req.headers.cookie) res.json(await getRefferalCode(cookie.parse(req.headers.cookie)['X-CSRF-Token']))
-// })
+app_express.post('/loginAdmin', async (req, res) => {
+    var res = await loginAdmin(req.body.login, req.body.password, req.headers.cookie ? cookie.parse(req.headers.cookie)['token'] : "")
+    if(res.succes){
+        res.cookie('token', res.responceCode, { maxAge: 1000, httpOnly: true });
+        res.json(res.succes)
+    }else{
+        res.json(false)
+    }
+})
 
 
 

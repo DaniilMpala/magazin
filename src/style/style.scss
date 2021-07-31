@@ -186,6 +186,21 @@ button {
         //border: solid white;
     }
 }
+.login{
+    background-color: #222222ab;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    button{
+        margin-top: 10px;
+    }
+}
+main{
+    display: flex;
+    
+    justify-content: center;
+}
 .title {
     //background: #222;
     box-shadow: inset 0 0 60px #d14148;
