@@ -1,58 +1,35 @@
 import React from 'react'
+import ax from 'axios'
 
 class Main extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             modalWindowData: {},
-            data: [
-                {
-                    id: "1",
-                    title: "С открытой торговой площадкой — Россия",
-                    items: [
-                        {
-                            id: "1",
-                            title: "Аккаунты steam c 4 LVL + уже открытая торговая площадка и рабочий обмен",
-                            colVo: 10,
-                            price: 499
-                        },
-                        {
-                            id: "2",
-                            title: "Аккаунты steam c 4 LVL + уже открытая торговая площадка и рабочий обмен",
-                            colVo: 10,
-                            price: 499
-                        },
-                    ]
-                },
-                {
-                    id: "1",
-                    title: "С открытой торговой площадкой — Россия",
-                    items: [
-                        {
-                            id: "1",
-                            title: "Аккаунты steam c 4 LVL + уже открытая торговая площадка и рабочий обмен",
-                            colVo: 10,
-                            price: 499
-                        },
-                        {
-                            id: "2",
-                            title: "Аккаунты steam c 4 LVL + уже открытая торговая площадка и рабочий обмен",
-                            colVo: 10,
-                            price: 499
-                        },
-                    ]
-                }
-            ]
+            data: [],
+            count: 1,
+            mail: ""
         }
     }
-    componentWillUnmount() {
-
+    componentDidMount() {
+        ax.post('/loadData')
+            .then(({ data }) => {
+                this.setState({ data: data })
+            })
     }
 
     Openbuy(id, id2) {
         this.setState({
             modalWindowData: this.state.data.find(v => v.id == id).items.find(v => v.id == id2)
         })
+    }
+
+    buy() {
+        ax.post('/buyAcc', { mail: this.state.mail, count: this.state.count })
+            .then(({ data }) => {
+                if (data.succes) window.location.href = data.url;
+                else this.props.notification('lose', data.messages)
+            })
     }
 
     render() {
@@ -69,15 +46,15 @@ class Main extends React.Component {
                             <div class="planet__row">
                                 <img class="planet-steam" src='img/Steam.svg' />
                                 <img class="planet-origin" src='img/origin.svg' />
-                                <img class="planet-uplay" src='img/uplay.svg'/>
+                                <img class="planet-uplay" src='img/uplay.svg' />
                                 <img class="planet-epic" src='img/epic.svg' />
                             </div>
                         </div>
-                        
+
                     </div>
-                    
-                    
-                    
+
+
+
                 </div>
                 <div className="items">
                     {this.state.data.map((e, key) => {
@@ -90,7 +67,7 @@ class Main extends React.Component {
                                     e.items.map((v, key) =>
                                         <div className="item" key={key}>
                                             <div>
-                                                <img src="https://stixed.ru/assets/Deer_new_stixed/img/50px/Steam.png"></img>
+                                                <img src={e.urlPhoto}></img>
                                                 <span>{v.title}</span>
                                             </div>
                                             <div>
@@ -114,16 +91,16 @@ class Main extends React.Component {
                                 <div class="modal-body">
                                     <div>
                                         <label>Почта</label>
-                                        <input placeholder="Ваша почта" />
+                                        <input value={this.state.mail} onChange={(e) => { this.setState({ mail: e.target.value }) }} placeholder="Ваша почта" />
                                     </div>
                                     <div>
                                         <label>Количество</label>
-                                        <input value="1" />
+                                        <input value={this.state.count} onChange={(e) => { this.setState({ count: !isNaN(e.target.value) && e.target.value.trim() ? e.target.value : this.state.count }) }} />
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <span>Итоговая сумма</span>
-                                    <button type="button">Купить</button>
+                                    <span>Итоговая сумма: {(this.state.count * this.state.modalWindowData.price).toFixed(2)} руб.</span>
+                                    <button onClick={this.buy.bind(this)} disabled={!this.state.mail} type="button">Купить</button>
                                 </div>
                             </div>
                         </div>

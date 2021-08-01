@@ -6,7 +6,7 @@ import {
     Route
 } from "react-router-dom"
 
-import Cookies from 'js-cookie'
+
 import "./style/style.scss"
 import "./style/notification.scss"
 
@@ -25,6 +25,8 @@ class Index extends React.Component {
     constructor(props) {
         super(props);
         this.notificationText = React.createRef();
+        this.Notification = this.Notification.bind(this);
+        this.notification = React.createRef();
     }
   
     componentDidMount() {
@@ -66,9 +68,9 @@ class Index extends React.Component {
             <Router>
                 <div id="body">
 
-                    {/* <button onClick={this.Notification.bind(this, undefined)} ref={this.notification} className="notification">
+                    <button onClick={this.Notification.bind(this, undefined)} ref={this.notification} className="notification">
                         <span ref={this.notificationText} className="notification__text"></span>
-                    </button> */}
+                    </button>
 
                     <Header  />
 
@@ -80,7 +82,7 @@ class Index extends React.Component {
                                 <Route path="/" exact component={() => (<Main notification={this.Notification} />)} />
                                 <Route path="/rules" exact component={() => (<Rules/>)} />
                                 <Route path="/useful" exact component={() => (<Useful/>)} />
-                                <Route path="/admin" exact component={() => (<Admin/>)} />
+                                <Route path="/admin" exact component={() => (<Admin notification={this.Notification}/>)} />
                             </Switch>
                         </div>
                     </div>
