@@ -115,14 +115,14 @@ input[type="number"]::-webkit-outer-spin-button {
         flex-direction: column;
         > div {
             display: flex;
-            label{
+            label {
                 font-size: 13px;
             }
             > div {
                 padding: 7px;
             }
         }
-        button{
+        button {
             width: 100%;
         }
     }
@@ -273,6 +273,7 @@ footer {
     padding: 20px 10%;
     justify-content: space-between;
     color: $fontColorWhite;
+    align-items: baseline;
     & span {
         opacity: 0.5;
     }
