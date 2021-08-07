@@ -26,12 +26,14 @@ class Main extends React.Component {
     }
 
     buy() {
-        ax.post("/buyAcc", { mail: this.state.mail, count: this.state.count }).then(
-            ({ data }) => {
-                if (data.succes) window.location.href = data.url;
-                else this.props.notification("lose", data.messages);
-            }
-        );
+        ax.post("/buyAcc", {
+            mail: this.state.mail,
+            count: this.state.count,
+            acc: this.state.modalWindowData,
+        }).then(({ data }) => {
+            if (data.succes) window.location.href = data.url;
+            else this.props.notification("lose", data.message);
+        });
     }
 
     render() {
@@ -113,6 +115,7 @@ class Main extends React.Component {
                                             <span className="colVo">{v.colVo} шт.</span>
                                             <span>Цена за 1шт.</span>
                                             <span className="colVo">{v.price}руб.</span>
+
                                             <button
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#Modal"
@@ -153,12 +156,13 @@ class Main extends React.Component {
                                 <div class="modal-body">
                                     <div>
                                         <label>Почта</label>
+
                                         <input
                                             value={this.state.mail}
                                             onChange={(e) => {
                                                 this.setState({ mail: e.target.value });
                                             }}
-                                            placeholder="Ваша почта"
+                                            placeholder="Ваша почта для отправки данных"
                                         />
                                     </div>
                                     <div>
@@ -187,7 +191,10 @@ class Main extends React.Component {
                                         руб.
                                     </span>
                                     <button
-                                        onClick={this.buy.bind(this)}
+                                        onClick={this.buy.bind(
+                                            this,
+                                            this.state.modalWindowData
+                                        )}
                                         disabled={!this.state.mail}
                                         type="button"
                                     >
