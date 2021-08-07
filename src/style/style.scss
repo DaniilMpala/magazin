@@ -162,7 +162,7 @@ select {
 .item {
     width: 100%;
     background-color: $black_border;
-    margin-top: 10px;
+    margin-top: 15px;
     border-radius: 5px;
     display: flex;
     gap: 10px;
@@ -257,9 +257,13 @@ main {
     }
 }
 .items {
-    padding: 10px;
+    //position: relative;
+
+    z-index: 3;
+    padding: 13px;
     box-shadow: 0 0 100px RGB(0 0 0 / 20%);
-    border-radius: 10px;
+    border-radius: 15px;
+    background-color: #fd805d8a;
     color: white;
 }
 footer {
@@ -776,14 +780,16 @@ header {
 
 .titleSteam {
     &__planet {
-        position: relative;
+        opacity: 0.9;
+        //position: relative;
         z-index: 1;
         width: 400px;
         height: 400px;
         border-radius: 50%;
         margin: 0 auto;
         background: radial-gradient(farthest-side ellipse at top left, white, #aaaaaa);
-        box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.3), -5px -10px 30px rgba(255, 255, 255, 0.295);
+        box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.3),
+            -5px -10px 30px rgba(255, 255, 255, 0.295);
     }
 }
 .planet {
@@ -833,4 +839,49 @@ header {
 .planet-epic {
     height: 85px;
     transform: translate(0px, 35px);
+}
+.item {
+    padding: 0 10px;
+    position: relative;
+    .item-title {
+        cursor: default;
+        padding: 20px;
+        &__info {
+            position: absolute;
+            top: 56px;
+            left: 0;
+            z-index: 20;
+            background-color: rgba(34, 34, 34, 0.904);
+            opacity: 0;
+            width: 600px;
+            border-radius: 6px 6px 12px 12px;
+            height: 0px;
+            padding: 0px 15px;
+            cursor: default;
+            transition: all 0.2s ease;
+            overflow: hidden;
+            & p {
+                line-height: 150%;
+            }
+        }
+        &:hover {
+            .item-title__info {
+                opacity: 1;
+                padding: 15px 15px;
+                height: 400px;
+            }
+        }
+    }
+}
+
+.modal .modal-header .btn-close {
+    //opacity: 0;
+    background-image: none;
+    &::after {
+        display: block;
+        content: "\00D7";
+        font-size: 35px;
+        line-height: 30px;
+        transform: translate(-2.5px, -9px);
+    }
 }
