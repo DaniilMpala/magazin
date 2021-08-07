@@ -63,22 +63,21 @@ class Main extends React.Component {
                                 <div className="title">
                                     <span>{e.title}</span>
                                 </div>
-                                {
-                                    e.items.map((v, key) =>
-                                        <div className="item" key={key}>
-                                            <div>
-                                                <img src={e.urlPhoto}></img>
-                                                <span >{v.title}</span>
-                                            </div>
-                                            <div>
-                                                <span className="colVo">{v.colVo} шт.</span>
-                                                <span>Цена за 1шт.</span>
-                                                <span className="colVo">{v.price}руб.</span>
-                                                <button data-bs-toggle="modal" data-bs-target="#Modal" onClick={this.Openbuy.bind(this, e.id, v.id)}>Купить</button>
-                                            </div>
+                                {e.items.map((v, key) =>
+                                // v.desc - описание товара
+                                    <div className="item" key={key}>
+                                        <div>
+                                            <img src={e.urlPhoto}></img>
+                                            <span >{v.title}</span>
                                         </div>
-                                    )
-                                }
+                                        <div>
+                                            <span className="colVo">{v.colVo} шт.</span>
+                                            <span>Цена за 1шт.</span>
+                                            <span className="colVo">{v.price}руб.</span>
+                                            <button data-bs-toggle="modal" data-bs-target="#Modal" onClick={this.Openbuy.bind(this, e.id, v.id)}>Купить</button>
+                                        </div>
+                                    </div>
+                                )}
                             </>)
                     })}
                     <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

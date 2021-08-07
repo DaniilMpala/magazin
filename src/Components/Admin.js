@@ -7,6 +7,11 @@ class Admin extends React.Component {
         this.login = React.createRef();
         this.pas = React.createRef();
 
+        this.Name = React.createRef();
+
+        this.oldName = React.createRef();
+        this.newName = React.createRef();
+
         this.desc = React.createRef();
         this.select = React.createRef();
         this.urlFoto = React.createRef();
@@ -63,7 +68,7 @@ class Admin extends React.Component {
                     <div className="main-block">
                         <div className="items">
                             <div className="title">
-                                <span>Загрузить товар</span>
+                                <span>Загрузка и редактирование товаров</span>
                             </div>
                             <div className="newItem">
                                 <div>
@@ -97,9 +102,9 @@ class Admin extends React.Component {
                                     </div>
                                     <button onClick={this.loadnewItem.bind(this)}>Загрузить товар</button>
                                 </div>
-                                <div style={{'padding-right': '10px'}}>
+                                <div style={{ 'padding-right': '10px' }}>
                                     <label for="inputState">Описание товара</label>
-                                    <textarea ref={this.desc} rows="5" placeholder=""></textarea>
+                                    <textarea style={{ 'text-align': 'left' }} ref={this.desc} rows="5" placeholder=""></textarea>
                                 </div>
                                 <div>
                                     <label for="inputState">Загрузить товар</label>
@@ -107,8 +112,25 @@ class Admin extends React.Component {
                                 </div>
 
                             </div>
+                            <div className="item">
+                                <input ref={this.oldName} placeholder='Старое название' style={{ 'padding': '2px', 'margin-top': 0 }} />
+                                <input ref={this.newName} placeholder='Новое название' style={{ 'padding': '2px', 'margin-top': 0 }} />
+                                <button onClick={() => {
+                                    ax.post('/updateName', { oldName: this.oldName.current.value, newName: this.newName.current.value }).then(({ data }) => {
+                                        this.props.notification('other', data.message)
+                                    })
+                                }}>Обновить</button>
+                            </div>
+                            <div className="item">
+                                <input ref={this.Name} placeholder='Название товара' style={{ 'padding': '2px', 'margin-top': 0 }} />
+                                <button onClick={() => {
+                                    ax.post('/deleteTovar', { Name: this.Name.current.value }).then(({ data }) => {
+                                        this.props.notification('other', data.message)
+                                    })
+                                }}>Удалить наименование</button>
+                            </div>
                             <div className="title">
-                                <span>Последнии покупки</span>
+                                <span>Последнии покупки (100)</span>
                             </div>
                             <div>
                                 {this.state.buylast.map((v, key) =>
@@ -128,8 +150,9 @@ class Admin extends React.Component {
 
                             </div>
                             <div className="title">
-                                <span>Вся база данных</span>
+                                <span>Вся база данных (лимит показа 100)</span>
                             </div>
+                            
                             <div>
                                 {this.state.allAcc.map((v, key) =>
                                     <div className="item" key={key}>
@@ -142,6 +165,22 @@ class Admin extends React.Component {
                                         </div>
                                     </div>
                                 )}
+                                {this.state.allAcc.length >= 0 ? <div className="overAcc">
+                                    <button onClick={() => {
+                                        ax.post('/NextallAcc', { next: false }).then(({ data }) => {
+                                            this.setState({
+                                                allAcc: data,
+                                            })
+                                        })
+                                    }}>{"<"}</button>
+                                    <button onClick={() => {
+                                        ax.post('/NextallAcc', { next: true }).then(({ data }) => {
+                                            this.setState({
+                                                allAcc: data,
+                                            })
+                                        })
+                                    }}>{">"}</button>
+                                </div> : ""}
                             </div>
                         </div>
                     </div>

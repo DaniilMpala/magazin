@@ -29,7 +29,7 @@ var dataLoad = []
 
 const updateColvo = async () => {
     var allCategory = await db.all(`SELECT * FROM category`)
-    var allAcc = await db.all(`SELECT DISTINCT idCategory, titleAccount, price FROM accounts WHERE sold = 0`)
+    var allAcc = await db.all(`SELECT DISTINCT idCategory, titleAccount, price, desc FROM accounts WHERE sold = 0`)
 
     allAcc = await Promise.all(allAcc.map(async (v, i) => {
         return {
@@ -37,6 +37,7 @@ const updateColvo = async () => {
             id: i,
             title: v.titleAccount,
             price: v.price,
+            desc: v.desc,
             idCategory: v.idCategory
         }
     }))
@@ -142,16 +143,47 @@ export const acceptbuyAcc = async (orderid, emailHash) => {
     //return { message: "Заказ обновлен и отправлен к вам на почту" }
     //пушем поулчаем опалут и ставим статус что оплачено
 }
+var lastLoadAllAcc = 0
 
+export const deleteTovar = async (token, {Name}) => {
+    if (token != responceCode) return "Вы обходите систему, ай ай ай :)"
+
+    await db.run(`DELETE FROM accounts WHERE titleAccount = '${Name}'`)
+
+    return {message: "Удалено"}
+}
+export const updateName = async (token, {oldName, newName}) => {
+    if (token != responceCode) return "Вы обходите систему, ай ай ай :)"
+
+    await db.run(`UPDATE accounts SET titleAccount = '${newName}' WHERE titleAccount = '${oldName}'`)
+
+    return {message: "Обновлено"}
+}
+export const NextallAcc = async (token, next) => {
+    if (token != responceCode) return "Вы обходите систему, ай ай ай :)"
+
+    
+    console.log(`SELECT * FROM accounts WHERE sold = 0 LIMIT ${next ? lastLoadAllAcc + 100 : (lastLoadAllAcc - 100 >= 0 ? lastLoadAllAcc - 100 : 0)}, 100`)
+    var allAcc = await db.all(`SELECT * FROM accounts WHERE sold = 0 LIMIT ${next ? lastLoadAllAcc + 100 : (lastLoadAllAcc - 100 >= 0 ? lastLoadAllAcc - 100 : 0)}, 100`)
+    
+    lastLoadAllAcc = next ? (allAcc.length > 0 ? lastLoadAllAcc + 100 : lastLoadAllAcc) : (lastLoadAllAcc - 100 >= 0 ? lastLoadAllAcc - 100 : 0)
+    console.log(lastLoadAllAcc)
+    
+    return allAcc
+}
 export const loginAdmin = async (login, pas, token) => {
 
     var login = login == _login && pas == pasword
-    if (login || token == responceCode) return {
-        succes: true,
-        responceCode: responceCode,
-        category: await db.all('SELECT * FROM category'),
-        buylast: await db.all(`SELECT * FROM buylast WHERE status != 'Производится оплата' LIMIT 100`),
-        allAcc: await db.all('SELECT * FROM accounts WHERE sold = 0 LIMIT 100'),
+    if (login || token == responceCode) {
+        var allAcc = await db.all('SELECT * FROM accounts WHERE sold = 0 LIMIT 100')
+        lastLoadAllAcc = 100
+        return {
+            succes: true,
+            responceCode: responceCode,
+            category: await db.all('SELECT * FROM category'),
+            buylast: await db.all(`SELECT * FROM buylast WHERE status != 'Производится оплата' LIMIT 100`),
+            allAcc: allAcc,
+        }
     }
     else return { succes: false }
 }

@@ -1,4 +1,4 @@
-import { loginAdmin, loadnewItem, loadData, buyAcc, acceptbuyAcc,PayCheck } from './functional.js'
+import { loginAdmin, loadnewItem, loadData,updateName,deleteTovar,NextallAcc, buyAcc, acceptbuyAcc,PayCheck } from './functional.js'
 import exp from 'express'
 import cookie from 'cookie'
 import path from 'path'
@@ -26,8 +26,8 @@ app_express.use(helmet.contentSecurityPolicy({
 
 
 const apiLimiter = rateLimit({
-    windowMs: 5 * 1000,
-    max: 150
+    windowMs: 60 * 1000,
+    max: 30
 });
 
 app_express.use(apiLimiter);
@@ -73,6 +73,17 @@ app_express.post('/loadData', async (req, res) => {
 app_express.post('/PayCheck', async (req, res) => {
     res.json(await PayCheck(req.body))
 })
+app_express.post('/NextallAcc', async (req, res) => {
+    if (req.headers.cookie)  res.json(await NextallAcc(cookie.parse(req.headers.cookie)['token'], req.body.next))
+})
+
+app_express.post('/updateName', async (req, res) => {
+    if (req.headers.cookie)  res.json(await updateName(cookie.parse(req.headers.cookie)['token'], req.body))
+})
+app_express.post('/deleteTovar', async (req, res) => {
+    if (req.headers.cookie)  res.json(await deleteTovar(cookie.parse(req.headers.cookie)['token'], req.body))
+})
+
 app_express.post('/buyAcc', async (req, res) => {
     res.json(await buyAcc(req.body))
 })
