@@ -7,6 +7,7 @@ class Admin extends React.Component {
         this.login = React.createRef();
         this.pas = React.createRef();
 
+        this.desc = React.createRef();
         this.select = React.createRef();
         this.urlFoto = React.createRef();
         this.nameTovar = React.createRef();
@@ -27,7 +28,12 @@ class Admin extends React.Component {
     loginAx() {
         ax.post('/loginAdmin', { login: this.login.current.value, password: this.pas.current.value })
             .then(({ data }) => {
-                this.setState({ auth: data.succes, category: data.category ? data.category : [], buylast: data.buylast ? data.buylast : [] })
+                this.setState({
+                    allAcc: data.allAcc,
+                    auth: data.succes,
+                    category: data.category ? data.category : [],
+                    buylast: data.buylast ? data.buylast : []
+                })
             })
     }
     loadnewItem() {
@@ -38,7 +44,8 @@ class Admin extends React.Component {
             urlFoto: this.urlFoto?.current?.value,
             name: this.nameTovar.current.value,
             tovar: this.tovar.current.value,
-            price: this.price.current.value
+            price: this.price.current.value,
+            desc: this.desc.current.value
         })
             .then(({ data }) => {
                 this.props.notification('other', data)
@@ -90,7 +97,10 @@ class Admin extends React.Component {
                                     </div>
                                     <button onClick={this.loadnewItem.bind(this)}>Загрузить товар</button>
                                 </div>
-
+                                <div style={{'padding-right': '10px'}}>
+                                    <label for="inputState">Описание товара</label>
+                                    <textarea ref={this.desc} rows="5" placeholder=""></textarea>
+                                </div>
                                 <div>
                                     <label for="inputState">Загрузить товар</label>
                                     <textarea ref={this.tovar} rows="5" placeholder="1 аккаунт = 1 строчка"></textarea>
@@ -101,15 +111,17 @@ class Admin extends React.Component {
                                 <span>Последнии покупки</span>
                             </div>
                             <div>
-                                {this.state.buylast.map(v =>
+                                {this.state.buylast.map((v, key) =>
                                     <div className="item" key={key}>
-                                        <div>
-                                            <img src={v.urlPhoto}></img>
+                                        <div style={{ 'width': "auto" }}>
                                             <span>{v.title}</span>
                                         </div>
-                                        <div>
+                                        <div style={{ 'width': "auto" }}>
                                             <span className="colVo">Купили: {v.colVo} шт.</span>
+                                            <span >по цене за 1 шт: {v.price} руб.</span>
                                             <span className="colVo">Общая стоимость: {v.price}руб.</span>
+                                            <span >{v.email}</span>
+                                            <span style={{ 'font-size': '10px', 'color': '#7d7d7d' }} >{v.date}</span>
                                         </div>
                                     </div>
                                 )}
@@ -119,7 +131,17 @@ class Admin extends React.Component {
                                 <span>Вся база данных</span>
                             </div>
                             <div>
-
+                                {this.state.allAcc.map((v, key) =>
+                                    <div className="item" key={key}>
+                                        <div style={{ 'width': "auto" }}>
+                                            <span>{v.titleAccount}</span>
+                                        </div>
+                                        <div style={{ 'width': "auto" }}>
+                                            <span className="colVo">Цена за шт: {v.price} руб.</span>
+                                            <span className="colVo">{v.infoAccount}</span>
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>

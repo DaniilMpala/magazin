@@ -28,6 +28,9 @@ class Header extends React.Component {
                             <li >
                                 <Link to="/rules">Правила</Link>
                             </li>
+                            <li >
+                                <Link to="/PayCheck">Мои покупки</Link>
+                            </li>
                             {/* <li >
                                 <Link to="/faq">Как купить?</Link>
                             </li> */}

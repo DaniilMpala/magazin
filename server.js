@@ -19,8 +19,8 @@ app_express.use(helmet.contentSecurityPolicy({
         styleSrc: ["*"],
         scriptSrc: ["'self'", "'unsafe-inline'"],
         frameSrc: ["'self'", "'unsafe-inline'"],
-        imgSrc: ["*"],
-        fontSrc: ["*"],
+        imgSrc: ["*", "http://www.w3.org/", "data:"],
+        fontSrc: ["*", "data:"],
     }
 }));
 
@@ -55,8 +55,8 @@ app_express.post('/pushpay', async (req, res, next) => {
             ax.post('https://ezcush.ru/pushfk', { id: req.body.MERCHANT_ORDER_ID, summa: req.body.AMOUNT, sign: req.body.SIGN })
             break;
         case 'shopacc':
-            payJson[req.body.intid] = "https://" + req.body.us_url + "." + req.body.us_domen + `/PayCheck?orderid=${req.body.MERCHANT_ORDER_ID}&email=${req.body.P_EMAIL}`
-            acceptbuyAcc()
+            payJson[req.body.intid] = `https://shop-acc.ru/PayCheck`
+            acceptbuyAcc(req.body.MERCHANT_ORDER_ID, req.body.us_email)
             break;
     }
 

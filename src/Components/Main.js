@@ -25,10 +25,10 @@ class Main extends React.Component {
     }
 
     buy() {
-        ax.post('/buyAcc', { mail: this.state.mail, count: this.state.count })
+        ax.post('/buyAcc', { mail: this.state.mail, count: this.state.count, acc: this.state.modalWindowData })
             .then(({ data }) => {
                 if (data.succes) window.location.href = data.url;
-                else this.props.notification('lose', data.messages)
+                else this.props.notification('lose', data.message)
             })
     }
 
@@ -68,7 +68,7 @@ class Main extends React.Component {
                                         <div className="item" key={key}>
                                             <div>
                                                 <img src={e.urlPhoto}></img>
-                                                <span>{v.title}</span>
+                                                <span >{v.title}</span>
                                             </div>
                                             <div>
                                                 <span className="colVo">{v.colVo} шт.</span>
@@ -91,7 +91,7 @@ class Main extends React.Component {
                                 <div class="modal-body">
                                     <div>
                                         <label>Почта</label>
-                                        <input value={this.state.mail} onChange={(e) => { this.setState({ mail: e.target.value }) }} placeholder="Ваша почта" />
+                                        <input value={this.state.mail} onChange={(e) => { this.setState({ mail: e.target.value }) }} placeholder="Ваша почта для отправки данных" />
                                     </div>
                                     <div>
                                         <label>Количество</label>
@@ -100,7 +100,7 @@ class Main extends React.Component {
                                 </div>
                                 <div class="modal-footer">
                                     <span>Итоговая сумма: {(this.state.count * this.state.modalWindowData.price).toFixed(2)} руб.</span>
-                                    <button onClick={this.buy.bind(this)} disabled={!this.state.mail} type="button">Купить</button>
+                                    <button onClick={this.buy.bind(this, this.state.modalWindowData)} disabled={!this.state.mail} type="button">Купить</button>
                                 </div>
                             </div>
                         </div>

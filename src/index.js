@@ -16,6 +16,7 @@ import Rules from './Components/Rules'
 import Header from './Components/Header'
 import Footer from './Components/Footer'
 import Admin from './Components/Admin'
+import PayCheck from './Components/PayCheck'
 
 var timerSocket;
 var notification;
@@ -82,6 +83,7 @@ class Index extends React.Component {
                                 <Route path="/" exact component={() => (<Main notification={this.Notification} />)} />
                                 <Route path="/rules" exact component={() => (<Rules/>)} />
                                 <Route path="/useful" exact component={() => (<Useful/>)} />
+                                <Route path="/PayCheck" exact component={() => (<PayCheck notification={this.Notification} />)} />
                                 <Route path="/admin" exact component={() => (<Admin notification={this.Notification}/>)} />
                             </Switch>
                         </div>

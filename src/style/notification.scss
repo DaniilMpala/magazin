@@ -38,6 +38,7 @@
 }
 
 .win {
+    z-index: 999999;
     top: 83.7px;
     @media (max-width: 727px) {
         top: 103.7px;
@@ -49,6 +50,7 @@
 }
 
 .lose {
+    z-index: 999999;
     top: 83.7px;
     @media (max-width: 727px) {
         top: 103.7px;
@@ -59,6 +61,7 @@
     color: $fontColorWhite;
 }
 .other {
+    z-index: 999999;
     top: 83.7px;
     @media (max-width: 727px) {
         top: 103.7px;
