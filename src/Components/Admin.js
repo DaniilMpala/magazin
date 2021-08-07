@@ -7,6 +7,12 @@ class Admin extends React.Component {
         this.login = React.createRef();
         this.pas = React.createRef();
 
+        this.Name = React.createRef();
+
+        this.oldName = React.createRef();
+        this.newName = React.createRef();
+
+        this.desc = React.createRef();
         this.select = React.createRef();
         this.urlFoto = React.createRef();
         this.nameTovar = React.createRef();
@@ -27,7 +33,12 @@ class Admin extends React.Component {
     loginAx() {
         ax.post('/loginAdmin', { login: this.login.current.value, password: this.pas.current.value })
             .then(({ data }) => {
-                this.setState({ auth: data.succes, category: data.category ? data.category : [], buylast: data.buylast ? data.buylast : [] })
+                this.setState({
+                    allAcc: data.allAcc,
+                    auth: data.succes,
+                    category: data.category ? data.category : [],
+                    buylast: data.buylast ? data.buylast : []
+                })
             })
     }
     loadnewItem() {
@@ -38,7 +49,8 @@ class Admin extends React.Component {
             urlFoto: this.urlFoto?.current?.value,
             name: this.nameTovar.current.value,
             tovar: this.tovar.current.value,
-            price: this.price.current.value
+            price: this.price.current.value,
+            desc: this.desc.current.value
         })
             .then(({ data }) => {
                 this.props.notification('other', data)
@@ -56,7 +68,7 @@ class Admin extends React.Component {
                     <div className="main-block">
                         <div className="items">
                             <div className="title">
-                                <span>Загрузить товар</span>
+                                <span>Загрузка и редактирование товаров</span>
                             </div>
                             <div className="newItem">
                                 <div>
@@ -90,36 +102,85 @@ class Admin extends React.Component {
                                     </div>
                                     <button onClick={this.loadnewItem.bind(this)}>Загрузить товар</button>
                                 </div>
-
+                                <div style={{ 'padding-right': '10px' }}>
+                                    <label for="inputState">Описание товара</label>
+                                    <textarea style={{ 'text-align': 'left' }} ref={this.desc} rows="5" placeholder=""></textarea>
+                                </div>
                                 <div>
                                     <label for="inputState">Загрузить товар</label>
                                     <textarea ref={this.tovar} rows="5" placeholder="1 аккаунт = 1 строчка"></textarea>
                                 </div>
 
                             </div>
+                            <div className="item">
+                                <input ref={this.oldName} placeholder='Старое название' style={{ 'padding': '2px', 'margin-top': 0 }} />
+                                <input ref={this.newName} placeholder='Новое название' style={{ 'padding': '2px', 'margin-top': 0 }} />
+                                <button onClick={() => {
+                                    ax.post('/updateName', { oldName: this.oldName.current.value, newName: this.newName.current.value }).then(({ data }) => {
+                                        this.props.notification('other', data.message)
+                                    })
+                                }}>Обновить</button>
+                            </div>
+                            <div className="item">
+                                <input ref={this.Name} placeholder='Название товара' style={{ 'padding': '2px', 'margin-top': 0 }} />
+                                <button onClick={() => {
+                                    ax.post('/deleteTovar', { Name: this.Name.current.value }).then(({ data }) => {
+                                        this.props.notification('other', data.message)
+                                    })
+                                }}>Удалить наименование</button>
+                            </div>
                             <div className="title">
-                                <span>Последнии покупки</span>
+                                <span>Последнии покупки (100)</span>
                             </div>
                             <div>
-                                {this.state.buylast.map(v =>
+                                {this.state.buylast.map((v, key) =>
                                     <div className="item" key={key}>
-                                        <div>
-                                            <img src={v.urlPhoto}></img>
+                                        <div style={{ 'width': "auto" }}>
                                             <span>{v.title}</span>
                                         </div>
-                                        <div>
+                                        <div style={{ 'width': "auto" }}>
                                             <span className="colVo">Купили: {v.colVo} шт.</span>
+                                            <span >по цене за 1 шт: {v.price} руб.</span>
                                             <span className="colVo">Общая стоимость: {v.price}руб.</span>
+                                            <span >{v.email}</span>
+                                            <span style={{ 'font-size': '10px', 'color': '#7d7d7d' }} >{v.date}</span>
                                         </div>
                                     </div>
                                 )}
 
                             </div>
                             <div className="title">
-                                <span>Вся база данных</span>
+                                <span>Вся база данных (лимит показа 100)</span>
                             </div>
+                            
                             <div>
-
+                                {this.state.allAcc.map((v, key) =>
+                                    <div className="item" key={key}>
+                                        <div style={{ 'width': "auto" }}>
+                                            <span>{v.titleAccount}</span>
+                                        </div>
+                                        <div style={{ 'width': "auto" }}>
+                                            <span className="colVo">Цена за шт: {v.price} руб.</span>
+                                            <span className="colVo">{v.infoAccount}</span>
+                                        </div>
+                                    </div>
+                                )}
+                                {this.state.allAcc.length >= 0 ? <div className="overAcc">
+                                    <button onClick={() => {
+                                        ax.post('/NextallAcc', { next: false }).then(({ data }) => {
+                                            this.setState({
+                                                allAcc: data,
+                                            })
+                                        })
+                                    }}>{"<"}</button>
+                                    <button onClick={() => {
+                                        ax.post('/NextallAcc', { next: true }).then(({ data }) => {
+                                            this.setState({
+                                                allAcc: data,
+                                            })
+                                        })
+                                    }}>{">"}</button>
+                                </div> : ""}
                             </div>
                         </div>
                     </div>
